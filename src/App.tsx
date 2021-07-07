@@ -24,7 +24,7 @@ function App() {
         {
             id: todoListID2,
             title: 'What to buy',
-            filter: 'active'
+            filter: 'all'
         }
     ])
 
@@ -36,14 +36,13 @@ function App() {
             {id: v1(), title: "Rest API", isDone: false},
             {id: v1(), title: "GraphQL", isDone: false},
         ], [todoListID2]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
+            {id: v1(), title: "Milk", isDone: true},
+            {id: v1(), title: "Sugar", isDone: true},
+            {id: v1(), title: "Salt", isDone: false},
+            {id: v1(), title: "Bread", isDone: false},
+            {id: v1(), title: "", isDone: false},
         ]
     });
-
 
     function removeTask(id: string, todoListID: string) {
         let todoListTask = tasks[todoListID]
@@ -52,19 +51,18 @@ function App() {
     }
 
     function addTask(title: string, todoListID: string) {
-        let task = {id: v1(), title: title, isDone: false}
         let todoListTasks = tasks[todoListID]
+        let task = {id: v1(), title: title, isDone: false}
         tasks[todoListID] = [task,...todoListTasks]
         setTasks({...tasks})
     }
 
-
-    function changeStatus(taskId: string, isDone: boolean) {
-        let task = tasks[taskId].find(t => t.id === taskId);
+    function changeStatus(taskId: string, isDone: boolean, todoListID: string) {
+        let todoListTasks = tasks[todoListID]
+        let task = todoListTasks.find(t => t.id === taskId);
         if (task) {
             task.isDone = isDone;
         }
-
         setTasks({...tasks});
     }
 
@@ -74,6 +72,14 @@ function App() {
             todoList.filter = value
             setTodoLists([...todoLists])
         }
+    }
+
+    function removeTodoList(todoListID:string){
+        let deletedTodoLists = todoLists.filter( tl => tl.id !== todoListID)
+        setTodoLists(deletedTodoLists)
+        delete tasks[todoListID]
+        setTasks({...tasks})
+
     }
 
     return (
@@ -92,6 +98,7 @@ function App() {
                                      key={tl.id}
                                      id={tl.id}
                                      tasks={tasksForTodolist}
+                                     removeTodoList={removeTodoList}
                                      removeTask={removeTask}
                                      changeFilter={changeFilter}
                                      addTask={addTask}
