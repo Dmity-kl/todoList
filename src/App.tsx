@@ -36,11 +36,11 @@ function App() {
             {id: v1(), title: "Rest API", isDone: false},
             {id: v1(), title: "GraphQL", isDone: false},
         ], [todoListID2]: [
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "Sugar", isDone: true},
-            {id: v1(), title: "Salt", isDone: false},
-            {id: v1(), title: "Bread", isDone: false},
-            {id: v1(), title: "", isDone: false},
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Rest API", isDone: false},
+            {id: v1(), title: "GraphQL", isDone: false},
         ]
     });
 
@@ -51,19 +51,19 @@ function App() {
     }
 
     function addTask(title: string, todoListID: string) {
-        let todoListTasks = tasks[todoListID]
         let task = {id: v1(), title: title, isDone: false}
-        tasks[todoListID] = [task,...todoListTasks]
+        let todoListTasks = tasks[todoListID]
+        tasks[todoListID] = [task, ...todoListTasks]
         setTasks({...tasks})
     }
 
-    function changeStatus(taskId: string, isDone: boolean, todoListID: string) {
-        let todoListTasks = tasks[todoListID]
-        let task = todoListTasks.find(t => t.id === taskId);
+    function changeStatus(taskID : string, isDone: boolean, todoListID: string) {
+        let tasksForChangeStatus = tasks[todoListID]
+        let task = tasksForChangeStatus.find(t => t.id === taskID);
         if (task) {
             task.isDone = isDone;
+            setTasks({...tasks});
         }
-        setTasks({...tasks});
     }
 
     function changeFilter(value: FilterValuesType, todoListID: string) {
@@ -74,19 +74,17 @@ function App() {
         }
     }
 
-    function removeTodoList(todoListID:string){
-        let deletedTodoLists = todoLists.filter( tl => tl.id !== todoListID)
-        setTodoLists(deletedTodoLists)
+    function removeTodoList(todoListID: string){
+        let removedTodoList = todoLists.filter(tl => tl.id !== todoListID)
         delete tasks[todoListID]
-        setTasks({...tasks})
-
+        setTodoLists(removedTodoList)
     }
 
     return (
         <div className="App">
             {
                 todoLists.map(tl => {
-                    let tasksForTodolist  = tasks[tl.id];
+                    let tasksForTodolist = tasks[tl.id];
 
                     if (tl.filter === "active") {
                         tasksForTodolist = tasksForTodolist.filter(t => !t.isDone);
@@ -98,12 +96,12 @@ function App() {
                                      key={tl.id}
                                      id={tl.id}
                                      tasks={tasksForTodolist}
-                                     removeTodoList={removeTodoList}
                                      removeTask={removeTask}
                                      changeFilter={changeFilter}
                                      addTask={addTask}
                                      changeTaskStatus={changeStatus}
                                      filter={tl.filter}
+                                     removeTodoList={removeTodoList}
                     />
                 })
             }
