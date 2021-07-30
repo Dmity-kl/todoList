@@ -8,7 +8,7 @@ import {Menu} from "@material-ui/icons";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
-type TodoListsType = {
+export type TodoListsType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -151,7 +151,7 @@ function App() {
                                 tasksForTodolist = tasksForTodolist.filter(t => t.isDone);
                             }
                             return <Grid item >
-                                <Paper elevation={3} style={ {padding: '10px'}}>
+                                <Paper elevation={3} style={ {margin: '10px'}}>
                                     <Todolist title={tl.title}
                                               key={tl.id}
                                               id={tl.id}

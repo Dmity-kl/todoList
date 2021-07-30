@@ -32,7 +32,7 @@ export function AddItemForm(props: AddItemFormType) {
     }
 
 
-    return <div>
+    return <div style={{textAlign: 'center'} }>
         <TextField value={title}
                    label={'add value'}
                    onChange={onChangeHandler}
