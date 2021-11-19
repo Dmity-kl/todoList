@@ -60,45 +60,37 @@ function AppWithReducers() {
     });
 
     function removeTask(id: string, todoListID: string) {
-        const action = removeTaskAC(id, todoListID)
-        dispatchToTaskReducer(action)
+        dispatchToTaskReducer(removeTaskAC(id, todoListID))
     }
 
     function addTask(title: string, todoListID: string) {
-        const action = addTaskAC(title, todoListID)
-        dispatchToTaskReducer(action)
+        dispatchToTaskReducer(addTaskAC(title, todoListID))
     }
 
     function changeStatus(taskID: string, isDone: boolean, todoListID: string) {
-        const action = changeTaskStatusAC(taskID, isDone, todoListID)
-        dispatchToTaskReducer(action)
+        dispatchToTaskReducer(changeTaskStatusAC(taskID, isDone, todoListID))
     }
 
     function removeTodoList(todoListID: string) {
-        const action = removeTodoListAC(todoListID)
-        dispatchToTodoListReducer(action)
-        dispatchToTaskReducer(action)
+        dispatchToTodoListReducer(removeTodoListAC(todoListID))
+        dispatchToTaskReducer(removeTodoListAC(todoListID))
     }
 
     function changeTodoListTitle(newTitle: string, todoListID: string) {
-        const action = changeTodoListTitleAC(newTitle, todoListID)
-        dispatchToTodoListReducer(action)
+        dispatchToTodoListReducer(changeTodoListTitleAC(newTitle, todoListID))
     }
 
     function addTodoList(title: string) {
-        const action = addTodoListAC(title)
-        dispatchToTodoListReducer(action)
-        dispatchToTaskReducer(action)
+        dispatchToTodoListReducer(addTodoListAC(title))
+        dispatchToTaskReducer(addTodoListAC(title))
     }
 
     function changeTaskTitle(taskID: string, newValue: string, todoListID: string) {
-        const action = changeTaskTitleAC(todoListID, taskID, newValue)
-        dispatchToTaskReducer(action)
+        dispatchToTaskReducer(changeTaskTitleAC(todoListID, taskID, newValue))
     }
 
     function changeFilter(value: FilterValuesType, todoListID: string) {
-        const action = changeTodoListFilterAC(todoListID, value)
-        dispatchToTodoListReducer(action)
+        dispatchToTodoListReducer(changeTodoListFilterAC(todoListID, value))
     }
 
     return (

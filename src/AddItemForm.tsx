@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {IconButton, TextField} from "@material-ui/core";
-import {AddCircleOutline, NoteAdd} from "@material-ui/icons";
+import {AddCircleOutline} from "@material-ui/icons";
 
 type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormType) {
-
+export const AddItemForm = React.memo((props: AddItemFormType) => {
+    console.log('AddItemForms is called')
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
@@ -16,7 +16,9 @@ export function AddItemForm(props: AddItemFormType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error !== null) {
+            setError(null);
+        }
         if (e.charCode === 13) {
             addTask();
         }
@@ -32,7 +34,7 @@ export function AddItemForm(props: AddItemFormType) {
     }
 
 
-    return <div style={{textAlign: 'center'} }>
+    return <div style={{textAlign: 'center'}}>
         <TextField value={title}
                    label={'add value'}
                    onChange={onChangeHandler}
@@ -41,10 +43,10 @@ export function AddItemForm(props: AddItemFormType) {
                    helperText={error}
         />
         <IconButton onClick={addTask}
-            color={"primary"}
-            size={"small"}>
+                    color={"primary"}
+                    size={"small"}>
             <AddCircleOutline/>
         </IconButton>
     </div>
 
-}
+});
