@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
 
 }
 
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan = React.memo( (props: EditableSpanPropsType) => {
     let [editMode, setEditMode] = useState(false)
     let [title, setTitle] = useState('')
 
@@ -28,4 +28,4 @@ export function EditableSpan(props: EditableSpanPropsType) {
                      onChange={onChangeTitleHandler}
         />
         : <span onDoubleClick={activateEditMode}>{props.title}</span>
-}
+}, )
