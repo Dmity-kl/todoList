@@ -20,7 +20,6 @@ export const GetTodolists = () => {
             .then((res) => {
                 setState(res.data)
             })
-
     }
 
     return <div> {JSON.stringify(state)}
@@ -109,45 +108,99 @@ export const UpdateTodolistTitle = () => {
 
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = '18ffa665-1666-4eab-a812-25e30ead9fc4';
+    const [todolistId, setTodolistId] = useState<any>(null)
+    const getTasks = () => {
         todolistApi.getTasks(todolistId)
             .then((res) => {
                 setState(res.data)
             })
-    }, [])
-    return <div> {JSON.stringify(state)}</div>
+    }
+    return <div> {JSON.stringify(state)}
+        <div>
+            <input type="text"
+                   placeholder={'todolistId'}
+                   value={todolistId}
+                   onChange={(e) => {
+                       setTodolistId(e.currentTarget.value)
+                   }}
+            />
+            <button onClick={getTasks}>Get Tasks</button>
+        </div>
+    </div>
 }
 
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = '0c7c59fd-10ad-414e-aa44-3b74d6638a00';
-        const taskId = ''
+    const [taskId, setTaskId] = useState<any>(null)
+    const [todolistId, setTodolistId] = useState<any>(null)
+
+    const deleteTask = () => {
         todolistApi.deleteTask(todolistId, taskId)
             .then((res) => {
                 setState(res.data)
             })
-    }, [])
-    return <div> {JSON.stringify(state)}</div>
+    }
+    return <div> {JSON.stringify(state)}
+        <div>
+            <input type="text"
+                   placeholder={'todoListId'}
+                   value={todolistId}
+                   onChange={(e) => {
+                       setTodolistId(e.currentTarget.value)
+                   }}
+            />
+            <input type="text"
+                   placeholder={'taskId'}
+                   value={taskId}
+                   onChange={(e) => {
+                       setTaskId(e.currentTarget.value)
+                   }}
+            />
+            <button onClick={deleteTask}>Delete task</button>
+
+        </div>
+
+    </div>
 }
 
 export const CreatTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = '18ffa665-1666-4eab-a812-25e30ead9fc4';
-        const title = 'taska add'
+    const [title, setTitle] = useState<any>(null)
+    const [todolistId, setTodolistId] = useState<any>(null)
+    const createTask = () => {
         todolistApi.createTask(todolistId, title)
             .then((res) => {
                 setState(res.data)
             })
-    }, [])
-    return <div> {JSON.stringify(state)}</div>
+    }
+    return <div> {JSON.stringify(state)}
+        <div>
+            <input type="text"
+                   placeholder={'todolistId'}
+                   value={todolistId}
+                   onChange={(e) => {
+                       setTodolistId(e.currentTarget.value)
+                   }}
+            />
+            <input type="text"
+                   placeholder={'title'}
+                   value={title}
+                   onChange={(e) => {
+                       setTitle(e.currentTarget.value)
+                   }}
+            />
+            <button onClick={createTask}>Create task</button>
+        </div>
+
+    </div>
 }
 
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
+    const [todolistId, setTodolistId] = useState<any>(null)
+    const [taskId, setTaskId] = useState<any>(null)
+    const [title, setTitle] = useState<any>(null)
+    const updateTask = () => {
         const todolistId = '18ffa665-1666-4eab-a812-25e30ead9fc4';
         const taskId = '126e42c0-cfac-4191-9314-06e075334ada'
         const title = 'update add'
@@ -155,7 +208,7 @@ export const UpdateTask = () => {
             .then((res) => {
                 setState(res.data)
             })
-    }, [])
+    }
     return <div> {JSON.stringify(state)}</div>
 }
 
