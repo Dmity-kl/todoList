@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from './Task'
 import {TaskStatuses, TaskType} from './api/todolists-api'
-import {FilterValuesType} from './state/todolists-reducer'
-import {getTasksTC} from "./state/tasks-reducer";
+import {addTodolistTC, deleteTodolistTC, FilterValuesType} from './state/todolists-reducer'
+import {deleteTaskTC, getTasksTC} from "./state/tasks-reducer";
 import {useDispatch} from "react-redux";
 
 type PropsType = {
@@ -37,9 +37,12 @@ export const Todolist = React.memo(function (props: PropsType) {
         props.addTask(title, props.id)
     }, [props.addTask, props.id])
 
-    const removeTodolist = () => {
-        props.removeTodolist(props.id)
-    }
+    const removeTodolist = useCallback(()=>{
+        dispatch(deleteTodolistTC(props.id))
+    },[])
+    // const removeTodolist = () => {
+    //     props.removeTodolist(props.id)
+    // }
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title)
     }, [props.id, props.changeTodolistTitle])
