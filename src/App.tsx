@@ -21,7 +21,7 @@ import {
 } from './state/todolists-reducer'
 import {
     addTaskTC,
-    changeTaskTitleAC,
+    changeTaskTitleAC, changeTaskTitleTC,
     deleteTaskTC,
     updateTaskStatusTC
 } from './state/tasks-reducer';
@@ -60,8 +60,8 @@ function App() {
     }, [dispatch]);
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
-        dispatch(action);
+        // const action = changeTaskTitleAC(id, newTitle, todolistId);
+        dispatch(changeTaskTitleTC(todolistId, id, newTitle));
     }, [dispatch]);
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
