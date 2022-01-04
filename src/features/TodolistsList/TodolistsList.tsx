@@ -22,7 +22,6 @@ export const TodolistsList: React.FC = () => {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
