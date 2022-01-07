@@ -66,7 +66,6 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             dispatch(setAppStatusAC('succeeded'));
         });
 };
-
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'));
     todolistsAPI.createTask(todolistId, title)
@@ -84,7 +83,6 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
             }
         });
 };
-
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
         const state = getState();
