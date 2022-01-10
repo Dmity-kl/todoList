@@ -7,6 +7,8 @@ import {
     setAppStatusActionType,
     setErrorActionType,
 } from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {AxiosError} from "axios";
 
 const initialState: Array<TodolistDomainType> = [];
 
@@ -23,7 +25,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case 'SET-TODOLISTS':
             return action.todolists.map(tl => ({...tl, filter: 'all', entityStatus: "idle"}));
         case "CHANGE-TODOLIST-ENTITY-STATUS":
-            return state.map(tl => tl.id === action.todolistId ? {...tl, entityStatus: action.entityStatus}: tl)
+            return state.map(tl => tl.id === action.todolistId ? {...tl, entityStatus: action.entityStatus} : tl);
         default:
             return state;
     }
@@ -62,21 +64,24 @@ export const fetchTodolistsTC = () => {
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC("loading"));
-        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
+        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'));
         todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
-                if (res.data.resultCode === 0 ){
+                if (res.data.resultCode === 0) {
                     dispatch(removeTodolistAC(todolistId));
                     dispatch(setAppStatusAC("succeeded"));
-                    dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
-                }else{
-                    if (res.data.messages.length){
-                        dispatch(setAppErrorAC(res.data.messages[0]))
-                    }else{
-                        dispatch(setAppErrorAC('Unknown error'))
+                    dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'));
+                } else {
+                    if (res.data.messages.length) {
+                        dispatch(setAppErrorAC(res.data.messages[0]));
+                    } else {
+                        dispatch(setAppErrorAC('Unknown error'));
                     }
-                    dispatch(setAppStatusAC('failed'))
+                    dispatch(setAppStatusAC('failed'));
                 }
+            })
+            .catch((err: AxiosError) => {
+                handleServerNetworkError(dispatch, err.message);
             });
     };
 };
@@ -88,15 +93,18 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>
                 dispatch(addTodolistAC(res.data.data.item));
                 dispatch(setAppStatusAC("succeeded"));
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]));
-                } else {
-                    dispatch(setAppErrorAC('Some error occurred'));
-                }
-                dispatch(setAppStatusAC('failed'));
+                handleServerAppError(dispatch, res.data);
+                //выносим ↓ в error-utils.ts ↑
+                // if (res.data.messages.length) {
+                //     dispatch(setAppErrorAC(res.data.messages[0]));
+                // } else {
+                //     dispatch(setAppErrorAC('Some error occurred'));
+                // }
+                // dispatch(setAppStatusAC('failed'));
             }
-
-
+        })
+        .catch((error: AxiosError) => {
+            handleServerNetworkError(dispatch, error.message);
         });
 };
 export const changeTodolistTitleTC = (id: string, title: string) => {
@@ -104,7 +112,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
         dispatch(setAppStatusAC("loading"));
         todolistsAPI.updateTodolist(id, title)
             .then((res) => {
-                if (res.data.resultCode === 0){
+                if (res.data.resultCode === 0) {
                     dispatch(changeTodolistTitleAC(id, title));
                     dispatch(setAppStatusAC("succeeded"));
                 }
