@@ -42,7 +42,6 @@ export type TodolistType = {
     title: string
     addedDate: string
     order: number
-
 }
 export type ResponseType<D = {}> = {
     resultCode: number
