@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {todolistsAPI} from "../api/todolists-api";
 import {setIsLoggedInAC} from "../features/Login/auth-Reducer";
+import {authAPI} from "../api/authAPI";
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -23,7 +24,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 export const initialStateTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'));
-    todolistsAPI.autMe()
+    authAPI.autMe()
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC(true));

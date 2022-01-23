@@ -29,25 +29,27 @@ export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch) =
     authAPI.login(data)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(true))
-                dispatch(setAppStatusAC('idle'))
-            }else{
+                dispatch(setIsLoggedInAC(true));
+                dispatch(setAppStatusAC('idle'));
+            } else {
                 handleServerAppError(res.data, dispatch);
             }
-        })
+        });
 };
 
 export const logoutTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'));
-    todolistsAPI.logout()
-        .then((res)=>{
-            if (res.data.resultCode===0){
-                dispatch(setIsLoggedInAC(false))
+    authAPI.logout()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(false));
                 dispatch(setAppStatusAC('idle'));
+            }else {
+                handleServerAppError(res.data, dispatch);
             }
-        })
+        });
 
-}
+};
 
 
 type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetAppErrorActionType
