@@ -29,12 +29,9 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn);
 
     useEffect(() => {
-        if (demo || !isLoggedIn ) {
-            return;
-        }
         const thunk = fetchTodolistsTC();
         dispatch(thunk);
-    }, []);
+    }, [dispatch]);
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskTC(id, todolistId));

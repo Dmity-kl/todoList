@@ -1,5 +1,4 @@
 import {Dispatch} from "redux";
-import {todolistsAPI} from "../api/todolists-api";
 import {setIsLoggedInAC} from "../features/Login/auth-Reducer";
 import {authAPI} from "../api/authAPI";
 
