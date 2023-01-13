@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Dmitry-Klyuev.github.io/todoList/",
+  "homepage": "https://dmitry-klyuev.github.io/todoList",
   "name": "todolist",
   "version": "0.1.0",
   "private": true,
@@ -13,14 +13,14 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
+    "@types/node": "^18.11.18",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.18",
     "@types/uuid": "^8.3.1",
-    "axios": "^0.24.0",
+    "axios": "^1.2.2",
     "formik": "^2.2.9",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
     "react-router-dom": "^6.2.1",
@@ -66,6 +66,6 @@
     "@storybook/node-logger": "^6.1.15",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.1.15",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^4.0.0"
   }
 }
