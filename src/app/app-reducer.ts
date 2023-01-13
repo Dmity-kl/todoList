@@ -23,6 +23,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 export const initialStateTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'));
+    debugger
     authAPI.autMe()
         .then((res) => {
             if (res.data.resultCode === 0) {
